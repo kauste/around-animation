@@ -1,0 +1,26 @@
+body{
+    background-color: rgba(174, 183, 3, 0.287);
+    margin:0;
+}
+.container{
+    height:100vh;
+    width:100vw;
+}
+h1{
+    margin:0;
+    font-size: 24px;
+    line-height: 28px;
+    position: absolute;
+    top: calc(100% / 2 - 28px);
+    left: 0;
+}
+// @keyframes around{
+//     0% {
+//         top: 0;
+//         left: 0;
+//     }
+//     100% {
+//         top: calc(100vh - 28px);
+//         left: calc(100vh - 28px);
+//     }
+// }
