@@ -1,5 +1,5 @@
 body {
-  background-color: hwb(241 0% 81%);
+  background-color: #e4fc03;
   margin: 0;
 }
 
@@ -8,17 +8,20 @@ body {
 }
 
 .container {
-  background-color: rgb(224, 224, 225);
+  background-color: black;
   height: calc(100vh - 100px);
   width: calc(100vw - 100px);
-  box-shadow: 0px 0px 7px 4px hwb(240 0% 89%);
+  box-shadow: 0 0 4px 8px #1f2300;
 }
 
 h1 {
   margin: 0;
   font-size: 24px;
   line-height: 28px;
+  letter-spacing: 3px;
   position: absolute;
   top: calc(50% - 28px);
   left: 50px;
+  color: #fff;
+  font-family: Helvetica, Arial, sans-serif;
 }

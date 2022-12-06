@@ -11,13 +11,15 @@ var item = document.querySelector(".item");
 var itemW = item.offsetWidth;
 var itemH = item.offsetHeight;
 var itemStyle = window.getComputedStyle(item);
-var toBottom = 1;
-var toRight = 1.5;
-var miliSec = 2;
+var toBottom = 0.5;
+var toRight = 0.6;
+var miliSec = 3;
 var frame = 50;
+var frameForTopLeft = frame - 2;
+var frameForBottomRight = frame + 8;
 var mainFunc = function mainFunc(props) {
-  var containerBottom = document.querySelector(".container").offsetHeight - itemH + frame;
-  var containerRight = document.querySelector(".container").offsetWidth - itemW + frame;
+  var containerBottom = document.querySelector(".container").offsetHeight - itemH;
+  var containerRight = document.querySelector(".container").offsetWidth - itemW;
   var itemTop = Number(itemStyle.getPropertyValue("top").replace("px", ""));
   var itemLeft = Number(itemStyle.getPropertyValue("left").replace("px", ""));
   if (props.firstIf1(itemTop + toBottom, containerBottom) || props.firstIf2(itemLeft + toRight, containerRight)) {
@@ -37,10 +39,10 @@ var mainFunc = function mainFunc(props) {
 var bottom = function bottom() {
   props = {
     firstIf1: function firstIf1(a, b) {
-      return a >= b - 5 ? true : false;
+      return a >= b + frameForBottomRight - 5 ? true : false;
     },
     firstIf2: function firstIf2(c, d) {
-      return c >= d - 5 ? true : false;
+      return c >= d + frameForBottomRight - 5 ? true : false;
     },
     isfirstIf1: false,
     secondIfFunc: backBottom,
@@ -53,10 +55,10 @@ var bottom = function bottom() {
 var backBottom = function backBottom() {
   props = {
     firstIf1: function firstIf1(a, b) {
-      return a >= b - 5 ? true : false;
+      return a >= b + frameForBottomRight - 5 ? true : false;
     },
     firstIf2: function firstIf2(c) {
-      return c <= frame ? true : false;
+      return c <= frameForTopLeft ? true : false;
     },
     isfirstIf1: false,
     secondIfFunc: bottom,
@@ -69,10 +71,10 @@ var backBottom = function backBottom() {
 var left = function left() {
   props = {
     firstIf1: function firstIf1(a, b) {
-      return a >= b - 5 ? true : false;
+      return a >= b + frameForBottomRight - 5 ? true : false;
     },
     firstIf2: function firstIf2(c) {
-      return c <= frame ? true : false;
+      return c <= frameForTopLeft ? true : false;
     },
     isfirstIf1: true,
     secondIfFunc: leftBack,
@@ -80,16 +82,15 @@ var left = function left() {
     plusOrMinus1: 1,
     plusOrMinus2: -1
   };
-  console.log('left');
   mainFunc(props);
 };
 var leftBack = function leftBack() {
   props = {
     firstIf1: function firstIf1(a) {
-      return a <= frame ? true : false;
+      return a <= frameForTopLeft ? true : false;
     },
     firstIf2: function firstIf2(b) {
-      return b <= frame ? true : false;
+      return b <= frameForTopLeft ? true : false;
     },
     isfirstIf1: true,
     secondIfFunc: left,
@@ -97,16 +98,15 @@ var leftBack = function leftBack() {
     plusOrMinus1: -1,
     plusOrMinus2: -1
   };
-  console.log('leftBack');
   mainFunc(props);
 };
 var top = function top() {
   props = {
     firstIf1: function firstIf1(a) {
-      return a <= frame ? true : false;
+      return a <= frameForTopLeft ? true : false;
     },
     firstIf2: function firstIf2(b) {
-      return b <= frame ? true : false;
+      return b <= frameForTopLeft ? true : false;
     },
     isfirstIf1: false,
     secondIfFunc: topBack,
@@ -119,10 +119,10 @@ var top = function top() {
 var topBack = function topBack() {
   props = {
     firstIf1: function firstIf1(a) {
-      return a <= frame ? true : false;
+      return a <= frameForTopLeft ? true : false;
     },
     firstIf2: function firstIf2(b, c) {
-      return b >= c - 5 ? true : false;
+      return b >= c + frameForBottomRight - 5 ? true : false;
     },
     isfirstIf1: false,
     secondIfFunc: top,
@@ -135,10 +135,10 @@ var topBack = function topBack() {
 var right = function right() {
   props = {
     firstIf1: function firstIf1(a) {
-      return a <= frame ? true : false;
+      return a <= frameForTopLeft ? true : false;
     },
     firstIf2: function firstIf2(b, c) {
-      return b >= c - 5 ? true : false;
+      return b >= c + frameForBottomRight - 5 ? true : false;
     },
     isfirstIf1: true,
     secondIfFunc: rightBack,
@@ -151,10 +151,10 @@ var right = function right() {
 var rightBack = function rightBack() {
   props = {
     firstIf1: function firstIf1(a, b) {
-      return a >= b - 5 ? true : false;
+      return a >= b + frameForBottomRight - 5 ? true : false;
     },
     firstIf2: function firstIf2(b, c) {
-      return b >= c - 5 ? true : false;
+      return b >= c + frameForBottomRight - 5 ? true : false;
     },
     isfirstIf1: true,
     secondIfFunc: right,
@@ -167,10 +167,10 @@ var rightBack = function rightBack() {
 var bottomFirst = function bottomFirst() {
   props = {
     firstIf1: function firstIf1(a, b) {
-      return a >= b - 5 ? true : false;
+      return a >= b + frameForBottomRight - 5 ? true : false;
     },
     firstIf2: function firstIf2(c, d) {
-      return c >= d - 5 ? true : false;
+      return c >= d + frameForBottomRight - 5 ? true : false;
     },
     isfirstIf1: false,
     secondIfFunc: backBottom,
