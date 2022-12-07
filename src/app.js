@@ -6,8 +6,8 @@ let toBottom = 1;
 let toRight = 1.5;
 let miliSec = 1;
 const frame = 50;
-const frameForTopLeft = frame - 2;
-const frameForBottomRight = frame + 8;
+const frameForTopLeft = frame - 2 + 5;
+const frameForBottomRight = frame + 8 - 5;
 
 const mainFunc = (props) => {
       const containerBottom = document.querySelector(".container").offsetHeight - itemH;
@@ -18,11 +18,19 @@ const mainFunc = (props) => {
       if (props.firstIf1(itemTop + toBottom, containerBottom) || props.firstIf2(itemLeft + toRight, containerRight)) 
       {
             clearInterval(interval);
-            if(props.isfirstIf1 ? props.firstIf1(itemTop + toBottom, containerBottom) : props.firstIf2(itemLeft + toRight, containerRight)){
-              props.secondIfFunc();
-              interval = setInterval(props.secondIfFunc, miliSec);
+            if(props.firstIf1(itemTop + toBottom, containerBottom) && props.firstIf2(itemLeft + toRight, containerRight)){
+                  console.log('if');
+                  props.secondIfFunc();
+                  interval = setInterval(props.secondIfFunc, miliSec);
+            }
+            else if((props.isfirstIf1 ? props.firstIf1(itemTop + toBottom, containerBottom) : props.firstIf2(itemLeft + toRight, containerRight)
+              && props.isfirstIf1 ? !props.firstIf2(itemLeft + toRight, containerRight) : !props.firstIf1(itemTop + toBottom, containerBottom))){
+                  console.log('elseif');
+              props.secondElseIfFunc();
+              interval = setInterval(props.secondElseIfFunc, miliSec);
             }
             else{
+                  console.log('else');
               props.secondElseFunc();
                 interval = setInterval(props.secondElseFunc, miliSec);
             }
@@ -33,22 +41,24 @@ const mainFunc = (props) => {
 }
 const bottom = () => {
       props = {
-            firstIf1:(a, b) => a >= (b + frameForBottomRight - 5) ? true : false,
-            firstIf2: (c, d) => c >= (d + frameForBottomRight - 5) ? true : false,
+            firstIf1:(a, b) => a >= (b + frameForBottomRight ) ? true : false,
+            firstIf2: (c, d) => c >= (d + frameForBottomRight ) ? true : false,
+            secondIfFunc: leftBack,
             isfirstIf1: false,
-            secondIfFunc: backBottom,
+            secondElseIfFunc: bottomBack,
             secondElseFunc: right,
             plusOrMinus1: 1,
             plusOrMinus2: 1,
       }
       mainFunc(props);
 }
-const backBottom = () => {
+const bottomBack = () => {
       props = {
-            firstIf1:(a, b) => a >= (b + frameForBottomRight - 5) ? true : false,
+            firstIf1:(a, b) => a >= (b + frameForBottomRight ) ? true : false,
             firstIf2: (c) => c <= frameForTopLeft ? true : false,
+            secondIfFunc: rightBack,
             isfirstIf1: false,
-            secondIfFunc: bottom,
+            secondElseIfFunc: bottom,
             secondElseFunc: leftBack,
             plusOrMinus1: 1,
             plusOrMinus2: -1,
@@ -57,10 +67,11 @@ const backBottom = () => {
 }
 const left = () => {
       props = {
-            firstIf1:(a, b) => a >= (b + frameForBottomRight - 5) ? true : false,
+            firstIf1:(a, b) => a >= (b + frameForBottomRight ) ? true : false,
             firstIf2: (c) => c <= frameForTopLeft ? true : false,
+            secondIfFunc: topBack,
             isfirstIf1: true,
-            secondIfFunc: leftBack,
+            secondElseIfFunc: leftBack,
             secondElseFunc: bottom,
             plusOrMinus1: 1,
             plusOrMinus2: -1,
@@ -69,10 +80,11 @@ const left = () => {
 }
 const leftBack = () => {
       props = {
-            firstIf1:(a) => a <= frameForTopLeft ? true : false,
+            firstIf1:(a) => a <= frameForTopLeft? true : false,
             firstIf2: (b) => b <= frameForTopLeft ? true : false,
+            secondIfFunc: bottomBack,
             isfirstIf1: true,
-            secondIfFunc: left,
+            secondElseIfFunc: left,
             secondElseFunc: topBack,
             plusOrMinus1: -1,
             plusOrMinus2: -1,
@@ -83,8 +95,9 @@ const top = () => {
       props = {
             firstIf1:(a) => a <= frameForTopLeft ? true : false,
             firstIf2: (b) => b <= frameForTopLeft ? true : false,
+            secondIfFunc: rightBack,
             isfirstIf1: false,
-            secondIfFunc: topBack,
+            secondElseIfFunc: topBack,
             secondElseFunc: left,
             plusOrMinus1: -1,
             plusOrMinus2: -1,
@@ -95,8 +108,9 @@ const topBack = () => {
       props = {
             firstIf1:(a) => a <= frameForTopLeft ? true : false,
             firstIf2: (b, c) => b >= (c + frameForBottomRight -5) ? true : false,
+            secondIfFunc: leftBack,
             isfirstIf1: false,
-            secondIfFunc: top,
+            secondElseIfFunc: top,
             secondElseFunc: rightBack,
             plusOrMinus1: -1,
             plusOrMinus2: 1,
@@ -106,9 +120,10 @@ const topBack = () => {
 const right = () => {
       props = {
             firstIf1:(a) => a <= frameForTopLeft ? true : false,
-            firstIf2: (b, c) => b >= (c + frameForBottomRight - 5) ? true : false,
+            firstIf2: (b, c) => b >= (c + frameForBottomRight ) ? true : false,
             isfirstIf1: true,
-            secondIfFunc: rightBack,
+            secondIfFunc: bottomBack,
+            secondElseIfFunc: rightBack,
             secondElseFunc: top,
             plusOrMinus1: -1,
             plusOrMinus2: 1,
@@ -117,11 +132,12 @@ const right = () => {
 }
 const rightBack = () => {
       props = {
-            firstIf1:(a, b) => a >= (b + frameForBottomRight - 5) ? true : false,
-            firstIf2: (b, c) => b >= (c + frameForBottomRight - 5) ? true : false,
+            firstIf1:(a, b) => a >= (b + frameForBottomRight ) ? true : false,
+            firstIf2: (b, c) => b >= (c + frameForBottomRight ) ? true : false,
+            secondIfFunc: topBack,
             isfirstIf1: true,
-            secondIfFunc: right,
-            secondElseFunc: backBottom,
+            secondElseIfFunc: right,
+            secondElseFunc: bottomBack,
             plusOrMinus1: 1,
             plusOrMinus2: 1,
       }
@@ -129,10 +145,11 @@ const rightBack = () => {
 }
 const bottomFirst = () => {
       props = {
-            firstIf1:(a, b) => a >= (b + frameForBottomRight - 5) ? true : false,
-            firstIf2: (c, d) => c >= (d + frameForBottomRight - 5) ? true : false,
+            firstIf1:(a, b) => a >= (b + frameForBottomRight ) ? true : false,
+            firstIf2: (c, d) => c >= (d + frameForBottomRight ) ? true : false,
+            secondIfFunc: leftBack,
             isfirstIf1: false,
-            secondIfFunc: backBottom,
+            secondElseIfFunc: bottomBack,
             secondElseFunc: right,
             plusOrMinus1: 1,
             plusOrMinus2: 1,
