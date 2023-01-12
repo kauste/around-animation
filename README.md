@@ -15,6 +15,7 @@ This project made for educational purposes only. The main purpose was get to kno
 
 - Window, element properties
 - Optimisation
+- Responsive
 
 ## Authors
 
