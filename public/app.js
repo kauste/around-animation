@@ -25,15 +25,12 @@ var mainFunc = function mainFunc(props) {
   if (props.firstIf1(itemTop + toBottom, containerBottom) || props.firstIf2(itemLeft + toRight, containerRight)) {
     clearInterval(interval);
     if (props.firstIf1(itemTop + toBottom, containerBottom) && props.firstIf2(itemLeft + toRight, containerRight)) {
-      console.log('if');
       props.secondIfFunc();
       interval = setInterval(props.secondIfFunc, miliSec);
     } else if (props.isfirstIf1 ? props.firstIf1(itemTop + toBottom, containerBottom) : props.firstIf2(itemLeft + toRight, containerRight) && props.isfirstIf1 ? !props.firstIf2(itemLeft + toRight, containerRight) : !props.firstIf1(itemTop + toBottom, containerBottom)) {
-      console.log('elseif');
       props.secondElseIfFunc();
       interval = setInterval(props.secondElseIfFunc, miliSec);
     } else {
-      console.log('else');
       props.secondElseFunc();
       interval = setInterval(props.secondElseFunc, miliSec);
     }
